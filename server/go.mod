@@ -1,4 +1,4 @@
-module github.com/config/db
+module github.com/jdotc2/blue-apricot/server
 
 go 1.12
 

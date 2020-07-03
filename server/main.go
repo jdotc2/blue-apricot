@@ -6,8 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/jdotc2/blue-apricot/config"
-	"github.com/jdotc2/blue-apricot/routes"
+	"github.com/jdotc2/blue-apricot/server/config"
+	"github.com/jdotc2/blue-apricot/server/routes"
 )
 
 func main() {
