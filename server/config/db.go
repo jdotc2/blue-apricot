@@ -4,6 +4,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
+
+	"github.com/jdotc2/blue-apricot/server/controllers"
 )
 
 func Connect() {
@@ -19,5 +21,6 @@ func Connect() {
 		log.Println("Connected!")
 	}
 	db := client.Database("mew")
+	controllers.PokemonCollection(db)
 	return
 }
