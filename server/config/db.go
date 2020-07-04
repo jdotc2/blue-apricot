@@ -1,6 +1,10 @@
 package config
 
 import (
+	"fmt"
+	"context"
+	"time"
+
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
@@ -8,19 +12,43 @@ import (
 	"github.com/jdotc2/blue-apricot/server/controllers"
 )
 
+// Connect to database
 func Connect() {
-	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
-	client, err := mongo.NewClient(clientOptions)
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	err = client.Connect(ctx)
 	defer cancel()
-	err = client.Ping(context.Background(), readpref.Primary())
-	if err != nil {
-		log.Fatal("Couldn't connect to the database", err)
-	} else {
-		log.Println("Connected!")
-	}
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
+	defer func() {
+    if err = client.Disconnect(ctx); err != nil {
+        panic(err)
+    }
+	}()
+
 	db := client.Database("mew")
-	controllers.PokemonCollection(db)
+	controllers.gen8Collection(db)
+
 	return
+}
+
+// Test Connection to database 
+func Test() {
+		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+		defer cancel()
+	
+		client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017/test?w=majority"))
+		if err != nil {
+			panic(err)
+		}
+	
+		defer func() {
+			if err = client.Disconnect(ctx); err != nil {
+				panic(err)
+			}
+		}()
+	
+		// Ping the primary
+		if err := client.Ping(ctx, readpref.Primary()); err != nil {
+			panic(err)
+		}
+	
+		fmt.Println("Successfully connected and pinged.")
 }

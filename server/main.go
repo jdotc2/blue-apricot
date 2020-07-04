@@ -4,14 +4,15 @@ import (
 	"log"
 
 	"github.com/gin-gonic/gin"
-	
+
 	"github.com/jdotc2/blue-apricot/server/config"
 	"github.com/jdotc2/blue-apricot/server/routes"
 )
 
 func main() {
 
-	config.Connect()
+	config.Test()
+	// config.Connect()
 
 	router := gin.Default()
 

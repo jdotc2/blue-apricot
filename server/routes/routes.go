@@ -6,9 +6,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Routes Function
 func Routes(router *gin.Engine) {
 	router.GET("/", welcome)
 	router.NoRoute(notFound)
+	router.GET("/gen8/:name/", func(c *gin.Context) {
+		name := c.Param("name")
+		c.String(http.StatusOK, "Hello %s", name)
+	})
 }
 
 func welcome(c *gin.Context) {

@@ -1,50 +1,33 @@
 package controllers
 
 import (
+	"go.mongodb.org/mongo-driver/mongo"
 	"time"
+
 	"github.com/gin-gonic/gin"
+
+	"github.com/jdotc2/blue-apricot/server/config"
 )
 
-// Pokemon object
-type Pokemon struct {
-	ID					string			`json:"id"`
-	Name				string			`json:"name"`
-	CreatedAt		time.Time		`json:"created_at"`
+func Gen struct {
+	ID        string    `json:"id"`
+	Title     string    `json:"title"`
+	Body      string    `json:"body"`
+	Completed string    `json:"completed"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
-// Database instance
-var collection *mongo.Collection
+var collecion *mongo.Collection
 
-func PokemonCollection(c *mongo.Database) {
-	collection = c.Collection("mew")
+func gen8Collection() {
+	collection = c.Collection('gen8')
 }
 
-func getAllPokemon(c *gin.Context) {
+func getGen8(c *gin.Context) {
 
-	pokemon := []Pokemon{}
+}
 
-	cursor, err := collection.Find(context.POKEMON(), bson.M{})
+func getGen8ById(c *gin.Context) {
 
-	if err != nil {
-		log.Printf("Error while getting all pokemon, Reason: %v\n", err)
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"status": http.StatusInternalServerError,
-			"message": "Something went wrong",
-		})
-		return
-	}
-
-	// Iterate through the returned cursor.
-	for cursor.Next(context.POKEMON()) {
-		var pokemon Pokemon
-		cursor.Decode(&pokemon)
-		allPokemon = append(allPokemon, pokemon)
-	}
-
-	c.JSON(http.StatusOK, gin.H{
-		"status": http.StatusOK,
-		"message": "All Pokemon",
-		"data": allPokemon,
-	})
-	return
 }
