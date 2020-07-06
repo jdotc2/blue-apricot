@@ -4,16 +4,18 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-contrib/cors"
+
+	// Controllers
+	"github.com/jdotc2/blue-apricot/server/controllers"
 )
 
 // Routes Function
 func Routes(router *gin.Engine) {
+	router.Use(cors.Default())
 	router.GET("/", welcome)
 	router.NoRoute(notFound)
-	router.GET("/gen8/:name/", func(c *gin.Context) {
-		name := c.Param("name")
-		c.String(http.StatusOK, "Hello %s", name)
-	})
+	router.GET("/gen8", controllers.GetAllGen8)
 }
 
 func welcome(c *gin.Context) {

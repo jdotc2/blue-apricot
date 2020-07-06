@@ -11,8 +11,8 @@ import (
 
 func main() {
 
-	config.Test()
-	// config.Connect()
+	// config.Test()
+	config.Connect()
 
 	router := gin.Default()
 
