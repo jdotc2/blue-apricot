@@ -1,67 +1,48 @@
 <script>
   import { LottiePlayer } from "@lottiefiles/svelte-lottie-player";
-  import { createEventDispatcher } from 'svelte'
+  import { createEventDispatcher } from "svelte";
 
   export let running = false;
 
   const dispatch = createEventDispatcher();
 
-  const toggle = () => dispatch('toggle')
+  const toggle = () => dispatch("toggle");
 
   const toggleRunning = () => {
     if (running) {
       running = !running;
-      dispatch('toggle')
+      dispatch("toggle");
     } else {
       running = !running;
-      dispatch('toggle')
+      dispatch("toggle");
     }
-  }
+  };
 </script>
-
-{#if running}
-  <div class="grid-container">
-    <div class="box" on:click={toggleRunning}>
-      <LottiePlayer
-        src="https://maxst.icons8.com/vue-static/landings/animated-icons/icons/rain-cloud-weather/rain-cloud-weather.json"
-        loop={true}
-        autoplay={true}
-        renderer="svg"
-        background="transparent"
-        height={45}
-        width={45}
-        controls={false}
-        controlsLayout={null} />
-    </div>
-  </div>
-{:else}
-  <div class="grid-container">
-    <div class="box" on:click={toggleRunning}>
-      <LottiePlayer
-        src="https://maxst.icons8.com/vue-static/landings/animated-icons/icons/rain-cloud-weather/rain-cloud-weather.json"
-        loop={true}
-        autoplay={false}
-        renderer="svg"
-        background="transparent"
-        height={45}
-        width={45}
-        controls={false}
-        controlsLayout={null} />
-    </div>
-  </div>
-{/if}
 
 <style type="text/scss">
   .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto;
-    grid-gap: 10px;
+    grid-template-columns: auto auto;
+    grid-gap: 30px;
     padding: 2px;
     justify-content: center;
     align-items: center;
     padding-bottom: 3%;
     text-align: center;
-    height: 100%;
+
+  }
+
+  .grid-container > div {
+    text-align: center;
+    padding: 20px 0;
+    display: block;
+    position: relative;
+    width: 100%;
+    border-collapse: collapse;
+    text-decoration: none;
+    color: #fff;
+    padding: 25%;
+    border-radius: 50%;
   }
 
   .box {
@@ -74,7 +55,6 @@
     color: #fff;
     padding: 25%;
     border-radius: 50%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 
   .box:before {
@@ -127,7 +107,31 @@
 
   .box:active {
     box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    transition-duration: 0.1s;
+    transition-duration: 4.1s;
     transform: translateY(1px);
   }
+
+  img {
+    width: 35px;
+  }
 </style>
+
+{#if running}
+  <div class="grid-container">
+    <div class="box" on:click={toggleRunning}>
+      <img src="https://img.icons8.com/color/48/000000/chance-of-storm.png" />
+    </div>
+    <div class="box" on:click={toggleRunning}>
+      <img src="https://img.icons8.com/color/48/000000/egg-pokemon.png" />
+    </div>
+  </div>
+{:else}
+  <div class="grid-container">
+    <div class="box" on:click={toggleRunning}>
+      <img src="https://img.icons8.com/color/48/000000/chance-of-storm.png" />
+    </div>
+    <div class="box" on:click={toggleRunning}>
+      <img src="https://img.icons8.com/color/48/000000/egg-pokemon.png" />
+    </div>
+  </div>
+{/if}
