@@ -16,6 +16,7 @@ func Routes(router *gin.Engine) {
 	router.GET("/", welcome)
 	router.NoRoute(notFound)
 	router.GET("/gen8", controllers.GetAllGen8)
+	router.GET("/weather", controllers.GetAllWeather)
 }
 
 func welcome(c *gin.Context) {

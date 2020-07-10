@@ -35,24 +35,9 @@ func Connect() {
 	}
 	db := client.Database("mew")
 	controllers.Gen8Collection(db)
+	controllers.WeatherCollection(db)
 	return
 	}
-
-// Connect to database
-// func Connect() {
-// 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-// 	defer cancel()
-// 	client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
-// 	defer func() {
-//     if err = client.Disconnect(ctx); err != nil {
-//         panic(err)
-//     }
-// 	}()
-
-// 	db := client.Database("mew")
-
-// 	return
-// }
 
 // Test Connection to database 
 func Test() {
