@@ -58,7 +58,6 @@ func GetAllGen8(c *gin.Context) {
 			gen8s = append(gen8s, gen8)
 	}
 
-
 	c.JSON(http.StatusOK, gin.H{
 		"status":  http.StatusOK,
 		"message": "All Gen8s",
@@ -66,7 +65,3 @@ func GetAllGen8(c *gin.Context) {
 	})
 	return
 }
-
-// func getGen8ById(c *gin.Context) {
-
-// }
