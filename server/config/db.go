@@ -36,6 +36,8 @@ func Connect() {
 	db := client.Database("mew")
 	controllers.Gen8Collection(db)
 	controllers.WeatherCollection(db)
+	controllers.TypeCollection(db)
+	controllers.PokeballCollection(db)
 	return
 	}
 

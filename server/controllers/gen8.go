@@ -14,7 +14,7 @@ import (
 
 // Gen8 Object
 type Gen8 struct {
-	ID        string    `json:"id"`
+	ID        int    `json:"id"`
 	Name			string		`json:"name"`
 	Images	  struct {
 		Main			string		`json:"main"`
@@ -37,6 +37,10 @@ func Gen8Collection(c *mongo.Database) {
 	collection = c.Collection("gen8")
 }
 
+func (gen8 *Gen8) setID(ID int) {
+	gen8.ID = ID
+}
+
 // GetAllGen8 Get all
 func GetAllGen8(c *gin.Context) {
 	gen8s := []Gen8{}
@@ -51,10 +55,14 @@ func GetAllGen8(c *gin.Context) {
 		return
 	}
 
+	id := 0
+
 	// Iterate through the returned cursor.
 	for cursor.Next(context.TODO()) {
 			var gen8 Gen8
 			cursor.Decode(&gen8)
+			gen8.setID(id)
+			id++
 			gen8s = append(gen8s, gen8)
 	}
 

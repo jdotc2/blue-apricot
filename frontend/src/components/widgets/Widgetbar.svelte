@@ -2,34 +2,45 @@
   import { LottiePlayer } from "@lottiefiles/svelte-lottie-player";
   import { createEventDispatcher } from "svelte";
 
-  export let running = false;
+  export let isWeatherRunning = false;
+  export let isPokeEggRunning = false;
+  export let isPokeTypeRunning = false;
+  export let isPokeballRunning = false;
 
   const dispatch = createEventDispatcher();
 
-  const toggle = () => dispatch("toggle");
 
-  const toggleRunning = () => {
-    if (running) {
-      running = !running;
-      dispatch("toggle");
-    } else {
-      running = !running;
-      dispatch("toggle");
-    }
+  const toggleWeatherGrid = () => {
+    isWeatherRunning = !isWeatherRunning;
+    dispatch("toggleWeather");
   };
+
+  const togglePokeEggGrid = () => {
+    isPokeEggRunning = !isPokeEggRunning
+    dispatch("toggleEgg");
+  }
+
+  const togglePokeTypeGrid = () => {
+    isPokeTypeRunning = !isPokeTypeRunning;
+    dispatch("togglePokeType");
+  }
+
+  const togglePokeballGrid = () => {
+    isPokeballRunning = !isPokeballRunning;
+    dispatch("togglePokeball");
+  }
 </script>
 
 <style type="text/scss">
   .grid-container {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
     grid-gap: 30px;
     padding: 2px;
     justify-content: center;
     align-items: center;
     padding-bottom: 3%;
     text-align: center;
-
   }
 
   .grid-container > div {
@@ -116,15 +127,23 @@
   }
 </style>
 
-{#if running}
-  <div class="grid-container">
-    <div class="box" on:click={toggleRunning}>
-      <img src="https://img.icons8.com/color/48/000000/chance-of-storm.png" />
-    </div>
-    <div class="box" on:click={toggleRunning}>
-      <img src="https://img.icons8.com/color/48/000000/egg-pokemon.png" />
-    </div>
+<div class="grid-container">
+  <div class="box" on:click={toggleWeatherGrid}>
+    <img src="https://img.icons8.com/color/48/000000/chance-of-storm.png" />
   </div>
+  <!-- <div class="box" on:click={togglePokeEggGrid}>
+    <img src="https://img.icons8.com/color/48/000000/egg-pokemon.png" />
+  </div> -->
+  <div class="box" on:click={togglePokeTypeGrid}>
+    <img src="https://vignette.wikia.nocookie.net/pokemongo/images/4/43/Fairy.png/revision/latest/scale-to-width-down/340?cb=20161013132820" />
+  </div> 
+  <div class="box" on:click={togglePokeballGrid}>
+    <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/pokeball-536029.png" />
+  </div>
+</div>
+
+<!-- {#if !isWeatherRunning}
+
 {:else}
   <div class="grid-container">
     <div class="box" on:click={toggleRunning}>
@@ -133,5 +152,11 @@
     <div class="box" on:click={toggleRunning}>
       <img src="https://img.icons8.com/color/48/000000/egg-pokemon.png" />
     </div>
+    <div class="box" on:click={toggleRunning}>
+      <img src="https://vignette.wikia.nocookie.net/pokemongo/images/4/43/Fairy.png/revision/latest/scale-to-width-down/340?cb=20161013132820" />
+    </div>
+    <div class="box" on:click={toggleRunning}>
+      <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/pokeball-536029.png" />
+    </div>
   </div>
-{/if}
+{/if} -->

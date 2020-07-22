@@ -1,5 +1,8 @@
 <script>
+  import { LottiePlayer } from "@lottiefiles/svelte-lottie-player";
   let weatherSprite = undefined;
+  export let sprite = undefined;
+
   let hovering;
 
   function enter() {
@@ -40,7 +43,6 @@
     display: grid;
     grid-template-columns: auto auto;
     grid-gap: 5px;
-
   }
 
   .date {
@@ -57,18 +59,33 @@
 {#if weatherSprite !== undefined}
 
   <article class="contact-card">
-    <div class="sprite">
-      <slot {weatherSprite} />
-    </div>
+    <LottiePlayer
+      src={sprite}
+      loop={true}
+      autoplay={true}
+      renderer="svg"
+      background="transparent"
+      height={22}
+      width={22}
+      controls={false}
+      controlsLayout={null} />
   </article>
 {:else}
 
-  <div class="contact-card" on:mouseenter={enter} on:mouseleave={leave}>
+  <div class="contact-card">
     <div class="header">
-      <div class="sprite" >
-        <slot {weatherSprite} hovering={hovering}/>
+      <div class="sprite">
+        <LottiePlayer
+          src={sprite}
+          loop={true}
+          autoplay={true}
+          renderer="svg"
+          background="transparent"
+          height={22}
+          width={22}
+          controls={false}
+          controlsLayout={null} />
       </div>
-      
       <div class="sprite">
         <slot name="name">
           <span class="missing">Unknown name</span>

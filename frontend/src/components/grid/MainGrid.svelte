@@ -9,6 +9,8 @@
   import Widgetbar from "../widgets/Widgetbar.svelte";
   import Navbar from "../Navbar.svelte";
   import WeatherGrid from "./WeatherGrid.svelte";
+  import PokeTypeGrid from "./PokeTypeGrid.svelte";
+  import PokeballGrid from "./PokeballGrid.svelte";
 
   const id = () =>
     "_" +
@@ -17,77 +19,71 @@
       .substr(2, 9);
 
   let weatherGridItem;
+  let pokeTypeGridItem;
+  let pokeballGridItem;
   let isWeatherVisible = false;
-  let isMapVisible = false;
-  let isPokedexVisible = false;
-  let weatherGrid = component => {
-    return gridHelp.item({
-      x: 0,
-      y: 0,
-      w: 10,
-      h: 1,
-      id: id(),
-      component: component
-    });
-  };
+  let isPokeTypeVisible = false;
+  let isPokeballVisible = false;
+
 
   let adjustAfterRemove = false;
 
   let cols = 5;
 
-  let items = [];
+  let layout = [];
+
+  let items = gridHelp.resizeItems(layout, cols);
+
+  
   // Apply breakpoints
   let breakpoints = [[1100, 5], [800, 4], [530, 1]];
-
-  function handleWeatherClick(item, event) {
-    if (!isWeatherVisible) {
-      isWeatherVisible = !isWeatherVisible;
-      console.log(isWeatherVisible);
-      return gridHelp.item({
-        x: 0,
-        y: 0,
-        w: 3,
-        h: 1,
-        id: id(),
-        component: WeatherGrid
-      });
-    } else {
-      isWeatherVisible = !isWeatherVisible;
-      let newItem = gridHelp.item({
-        x: 0,
-        y: 0,
-        w: 4,
-        h: 7,
-        id: id(),
-        component: WeatherGrid
-      });
-      remove(item, event);
-      return (items = gridHelp.appendItem(newItem, items, cols));
-    }
-  }
 
   function toggleWeather(event) {
     if (!isWeatherVisible) {
       isWeatherVisible = !isWeatherVisible;
-      let newWeatherGridItem = gridHelp.item({
-        x: 0,
-        y: 0,
-        w: 10,
-        h: 2,
-        id: id(),
-        component: WeatherGrid
-      });
+      let newWeatherGridItem = gridHelp.item({ x: 0, y: 0, w: 10, h: 2, id: id(), component: WeatherGrid });
       weatherGridItem = newWeatherGridItem;
-      console.log(weatherGridItem);
       items = gridHelp.appendItem(newWeatherGridItem, items, cols);
-      console.log(items);
-      console.log(isWeatherVisible);
       return items;
     } else {
-      isWeatherVisible = !isWeatherVisible;
-      console.log(isWeatherVisible);
       remove(weatherGridItem, event);
-      return;
+      isWeatherVisible = !isWeatherVisible;
+    }
+  }
+
+  function togglePokeEgg(event) {
+    if (!isPokeEggVisible) {
+      isPokeEggVisible = !isPokeEggVisible;
+      let newPokeEggGridItem = gridHelp.item({ x: 0, y: 0, w: 10, h: 2, id: id(), component: PokeEggGrid });
+      pokeEggGridItem = newPokeEggGridItem;
+      items = gridHelp.appendItem(newPokeEggGridItem, items, cols);
+      return items;
+    } else {
+      remove(pokeEggGridItem, event);
+    }
+  }
+
+  function togglePokeType(event) {
+    if (!isPokeTypeVisible) {
+      isPokeTypeVisible = !isPokeTypeVisible;
+      let newPokeTypeGridItem = gridHelp.item({ x: 0, y: 0, w: 5, h: 6, id: id(), component: PokeTypeGrid });
+      pokeTypeGridItem = newPokeTypeGridItem;
+      items = gridHelp.appendItem(newPokeTypeGridItem, items, cols);
+      return items;
+    } else {
+      remove(pokeTypeGridItem, event);
+    }
+  }
+
+  function togglePokeball(event) {
+    if (!isPokeballVisible) {
+      isPokeballVisible = !isPokeballVisible;
+      let newPokeballGridItem = gridHelp.item({ x: 0, y: 0, w: 5, h: 5, id: id(), component: PokeballGrid });
+      pokeballGridItem = newPokeballGridItem;
+      items = gridHelp.appendItem(newPokeballGridItem, items, cols);
+      return items;
+    } else {
+      remove(pokeballGridItem, event);
     }
   }
 
@@ -97,12 +93,12 @@
     if (adjustAfterRemove) {
       items = gridHelp.resizeItems(items, cols);
     }
-    isWeatherVisible = !isWeatherVisible;
   }
 </script>
 
 <style>
   .content {
+    z-index: 5;
     width: 100%;
     height: 100%;
     color: black;
@@ -189,9 +185,16 @@
 </style>
 
 <Navbar />
-<Widgetbar running={isWeatherVisible} on:toggle={toggleWeather} />
-<Grid bind:items let:item cols={10} rowHeight={100} gap={10}>
+<Widgetbar 
+  isWeatherRunning={isWeatherVisible} 
+  isPokeTypeRunning={isPokeTypeVisible}
+  isPokeballRunning={isPokeballVisible}
+  on:toggleWeather={toggleWeather}
+  on:togglePokeType={togglePokeType}
+  on:togglePokeball={togglePokeball} />
+<Grid bind:items let:item cols={10} rowHeight={100} gap={10} useTransform={true} >
   <div class="content" transition:fade={{ delay: 250, duration: 300 }}>
+  <svelte:component this={item.component} />
     <span on:click={remove.bind(null, item)} class="close-grid-nav">
       <div class="close">
         <LottiePlayer
@@ -206,11 +209,6 @@
           controlsLayout={null} />
       </div>
     </span>
-
-    <svelte:component
-      this={item.component}
-      visible={isWeatherVisible}
-      on:toggle={handleWeatherClick} />
     <span on:click={remove.bind(null, item)} class="lock-grid-nav">
       <div class="lock">
         <LottiePlayer
@@ -225,6 +223,5 @@
           controlsLayout={null} />
       </div>
     </span>
-
   </div>
 </Grid>

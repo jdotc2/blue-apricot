@@ -27,6 +27,10 @@ func WeatherCollection(c *mongo.Database) {
 	weatherCollection = c.Collection("weather")
 }
 
+func (weather *Weather) setID(ID int) {
+	weather.ID = ID
+}
+
 // GetAllWeather Data
 func GetAllWeather(c *gin.Context) {
 	weathers := []Weather{}
@@ -41,10 +45,14 @@ func GetAllWeather(c *gin.Context) {
 		return
 	}
 
+	id := 0
+
 	// Iterate through the returned cursor.
 	for cursor.Next(context.TODO()) {
 		var weather Weather
 		cursor.Decode(&weather)
+		weather.setID(id)
+		id++
 		weathers = append(weathers, weather)
 	}
 

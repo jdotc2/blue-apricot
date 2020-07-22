@@ -62,6 +62,9 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Questrial&family=Raleway:wght@300&family=Varela+Round&display=swap"
     rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Saira+Condensed&display=swap"
+    rel="stylesheet" />
 </svelte:head>
 <main>
   <div class="baHeader">

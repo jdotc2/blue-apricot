@@ -4,11 +4,14 @@ import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import autoPreprocess from 'svelte-preprocess';
+import svelteSVG from "rollup-plugin-svelte-svg";
 
 
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
+	entry: "src/input.js",
+	dest: "dist/output.js",
 	input: 'src/main.js',
 	output: {
 		sourcemap: true,
@@ -38,6 +41,7 @@ export default {
 			dedupe: ['svelte']
 		}),
 		commonjs(),
+		svelteSVG(),
 
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated
