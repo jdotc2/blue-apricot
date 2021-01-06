@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@lottiefiles/svelte-lottie-player": "^0.1.4",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "local-cors-proxy": "^1.1.0",
     "lodash.map": "^4.6.0",
