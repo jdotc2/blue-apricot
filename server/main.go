@@ -7,6 +7,7 @@ import (
 
 	"github.com/jdotc2/blue-apricot/server/config"
 	"github.com/jdotc2/blue-apricot/server/routes"
+	"$HOME/dev/blue-apricot/server/routes"
 )
 
 func main() {

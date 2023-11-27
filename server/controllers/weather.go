@@ -14,9 +14,9 @@ import (
 // Weather Object
 type Weather struct {
 	ID				int			`json:"id"`
-	Name			string	`json:"name"`
-	Sprite		string	`json:"sprite"`
-	Date			string	`json:"date"`
+	Name			string		`json:"name"`
+	Sprite			string		`json:"sprite"`
+	Date			string		`json:"date"`
 }
 
 // DATABASE INSTANCE

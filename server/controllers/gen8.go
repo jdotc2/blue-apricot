@@ -14,18 +14,18 @@ import (
 
 // Gen8 Object
 type Gen8 struct {
-	ID        string    `json:"id"`
-	Name			string		`json:"name"`
+	ID        string    	`json:"id"`
+	Name	  string		`json:"name"`
 	Images	  struct {
-		Main			string		`json:"main"`
-		Map				string		`json:"map"`
+		Main	string		`json:"main"`
+		Map		string		`json:"map"`
 	}
 	Exclusive struct {
-		Pokemon		[]int			`json:"pokemon"`
+		Pokemon	[]int		`json:"pokemon"`
 	}
-	Completed string    `json:"completed"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	Completed string    	`json:"completed"`
+	CreatedAt time.Time 	`json:"created_at"`
+	UpdatedAt time.Time 	`json:"updated_at"`
 }
 
 

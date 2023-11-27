@@ -8,6 +8,8 @@ import (
 
 	// Controllers
 	"github.com/jdotc2/blue-apricot/server/controllers"
+
+	"github.com/jdotc2/blue-apricot/server/test/testA"
 )
 
 // Routes Function
@@ -17,6 +19,7 @@ func Routes(router *gin.Engine) {
 	router.NoRoute(notFound)
 	router.GET("/gen8", controllers.GetAllGen8)
 	router.GET("/weather", controllers.GetAllWeather)
+	router.GET("/test", test.GetTest)
 }
 
 func welcome(c *gin.Context) {
